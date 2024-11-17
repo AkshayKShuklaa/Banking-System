@@ -5,7 +5,7 @@ class login extends JFrame
 {
     login()
     {
-        setSize(800,400);
+        setSize(800,300);
         setTitle("Automatic Teller Machine");
         setLayout(null);
         ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("logo.jpg"));
