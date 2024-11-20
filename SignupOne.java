@@ -5,7 +5,7 @@ public class SignupOne extends JFrame
     SignupOne()
     {
         setSize(850,800);
-        setLocation(350,10);
+        setLocation(350,11);
         setVisible(true);
 
         getContentPane().setBackground(Color.WHITE);
