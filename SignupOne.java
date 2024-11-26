@@ -1,12 +1,16 @@
 import java.awt.*;
 import java.util.Random;
 import javax.swing.*;
-
-public class SignupOne extends JFrame
+import java.awt.event.*;
+import com.toedter.calendar.JDateChooser;
+import java.awt.font.FontRenderContext;
+public class SignupOne extends JFrame implements ActionListener
 {
     JTextField nameTextField,fnameTextField,emailTextField,addressTextField,cityTextField,stateTextField,pincodeTextField;
-    //JDateChooser dateChooser;
+    JDateChooser dateChooser;
     JRadioButton male,female,married,unmarried,others;
+    JButton nextButton,resetButton;
+
     SignupOne()
     {
         setLayout(null);
@@ -54,10 +58,11 @@ public class SignupOne extends JFrame
         dob.setBounds(100,240,200,30);
         dob.setFont(new Font("Ostwald",Font.BOLD,20));
         add(dob);
-        /*dateChooser=new JDateChooser();
-        dateChooser.setBounds(300,240,200,30);
+        dateChooser=new JDateChooser();
+        dateChooser.setBounds(300,240,400,30);
         dateChooser.setForeground(new Color(105,105,105));
-        add(dateChooser);*/
+        add(dateChooser);
+        
 
 
         JLabel gender=new JLabel("Gender: ");
@@ -67,7 +72,7 @@ public class SignupOne extends JFrame
         male=new JRadioButton("Male");
         female=new JRadioButton("Female");
         male.setBounds(300,290,60,30);
-        female.setBounds(390,290,120,30);
+        female.setBounds(410,290,120,30);
         male.setBackground(Color.white);
         female.setBackground(Color.white);
         add(male);
@@ -91,11 +96,18 @@ public class SignupOne extends JFrame
         marital.setFont(new Font("Ostwald",Font.BOLD,20));
         add(marital);
         married=new JRadioButton("Married");
+        unmarried=new JRadioButton("Unmarried");
+        others=new JRadioButton("Other");
+        married.setBackground(Color.white);
+        unmarried.setBackground(Color.white);
+        others.setBackground(Color.white);
         married.setBounds(300,390,100,30);
         unmarried.setBounds(450,390,100,30);
         others.setBounds(630,390,100,30);
-        unmarried=new JRadioButton("Unmarried");
-        others=new JRadioButton("Other");
+        add(married);
+        add(unmarried);
+        add(others);
+
         ButtonGroup maritalButtonGroup=new ButtonGroup();
         maritalButtonGroup.add(married);
         maritalButtonGroup.add(unmarried);
@@ -117,7 +129,7 @@ public class SignupOne extends JFrame
         add(city);
         cityTextField=new JTextField();
         cityTextField.setFont(new Font("Raleway", Font.BOLD,14 ));
-        cityTextField.setBounds(300,490,200,30);
+        cityTextField.setBounds(300,490,400,30);
         add(cityTextField);
 
         JLabel state=new JLabel("State: ");
@@ -139,19 +151,50 @@ public class SignupOne extends JFrame
         add(pincodeTextField);
 
         
-        
+        System.out.println("Running till here");
 
-        /*ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("logo.jpg"));
-        Image i2=i1.getImage().getScaledInstance(10, 10, Image.SCALE_DEFAULT);
+        ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("logo.jpg"));
+        Image i2=i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
         ImageIcon i3=new ImageIcon(i2);
         JLabel logolabel=new JLabel(i3);
-        logolabel.setBounds(50,50,10,10);
-        add(logolabel);*/
+        logolabel.setBounds(20,10,200,200);
+        add(logolabel);
 
-
+        nextButton=new JButton("Next");
+        nextButton.setBounds(510,650,190,30);
+        nextButton.setBackground(Color.white);
+        nextButton.setForeground(Color.black);
+        nextButton.setFont(new Font("Raleway",Font.BOLD,14));
         
+        add(nextButton);
         
+        resetButton=new JButton("Reset");
+        resetButton.setForeground(Color.black);
+        resetButton.setBackground(Color.white);
+        resetButton.setBounds(300,650,190,30);
+        resetButton.setFont(new Font("Raleway",Font.BOLD,14));
+        add(resetButton);
 
+        nextButton.addActionListener(this);
+        resetButton.addActionListener(this);
+
+    }
+    public void actionPerformed(ActionEvent ae)
+    {
+        if(ae.getSource()==resetButton)
+        {
+            nameTextField.setText("");
+            fnameTextField.setText("");
+            emailTextField.setText("");
+            addressTextField.setText("");
+            cityTextField.setText("");
+            stateTextField.setText("");
+            pincodeTextField.setText("");
+        }
+        else if(ae.getSource()==nextButton)
+        {
+
+        }
     }
     public static void main(String[] args) {
         new SignupOne();
