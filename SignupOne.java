@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 import java.awt.font.FontRenderContext;
+import javax.lang.model.util.ElementScanner14;
 public class SignupOne extends JFrame implements ActionListener
 {
     JTextField nameTextField,fnameTextField,emailTextField,addressTextField,cityTextField,stateTextField,pincodeTextField;
@@ -166,6 +167,7 @@ public class SignupOne extends JFrame implements ActionListener
         nextButton.setBackground(Color.white);
         nextButton.setForeground(Color.black);
         nextButton.setFont(new Font("Raleway",Font.BOLD,14));
+        //nextButton.addActionListener(this);
         
         add(nextButton);
         
@@ -182,6 +184,58 @@ public class SignupOne extends JFrame implements ActionListener
     }
     public void actionPerformed(ActionEvent ae)
     {
+        String formno="";
+        String name=nameTextField.getText();
+        String fname=fnameTextField.getText();
+        String dob= dateChooser.getDateFormatString();
+        //String dob=((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String gender="";
+        if(male.isSelected()) gender="Male";
+        else gender="Female";
+        String email=emailTextField.getText();
+        String marital="";
+        if(married.isSelected()) marital="Married";
+        else if(unmarried.isSelected()) marital="Unmarried";
+        else marital="Others";
+        String address=addressTextField.getText();
+        String city=cityTextField.getText();
+        String state=stateTextField.getText();
+        String pin=pincodeTextField.getText();
+        try {
+            //while(name.equals("")||fname.equals("")||dob.equals("")||gender.equals(null)||email.equals("")||marital.equals("")||address.equals("")||city.equals("")||state.equals("")||pin.equals(""))
+            //{
+                if(name.equals(""))
+                JOptionPane.showMessageDialog(null, "Name is required");
+                else if(fname.equals(""))
+                JOptionPane.showMessageDialog(null, "Father's name is required");
+                else if(dob.equals(""))
+                JOptionPane.showMessageDialog(null, "DOB is required");
+                else if(gender.equals(""))
+                JOptionPane.showMessageDialog(null, "Gender is required");
+                else if(email.equals(""))
+                JOptionPane.showMessageDialog(null, "Email is required");
+                else if(marital.equals(""))
+                JOptionPane.showMessageDialog(null, "Marital Status is required");
+                else if(address.equals(""))
+                JOptionPane.showMessageDialog(null, "Address is required");
+                else if(city.equals(""))
+                JOptionPane.showMessageDialog(null, "City is required");
+                else if(state.equals(""))
+                JOptionPane.showMessageDialog(null, "State is required");
+                else if(pin.equals(""))
+                JOptionPane.showMessageDialog(null, "PIN is required");
+                else
+                {
+                    Conn c=new Conn();
+                    String query="INSERT INTO SIGNUP VALUES('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+state+"','"+city+"','"+pin+"')";
+                    c.s.executeUpdate(query);
+                }
+
+            //}
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         if(ae.getSource()==resetButton)
         {
             nameTextField.setText("");
