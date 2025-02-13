@@ -1,5 +1,5 @@
 import java.awt.*;
-//
+
 import java.util.Random;
 import javax.swing.*;
 import java.awt.event.*;
@@ -12,6 +12,7 @@ public class SignupOne extends JFrame implements ActionListener
     JDateChooser dateChooser;
     JRadioButton male,female,married,unmarried,others;
     JButton nextButton,resetButton;
+    Long formnumber=0L;
 
     SignupOne()
     {
@@ -24,7 +25,7 @@ public class SignupOne extends JFrame implements ActionListener
 
         Random ran =new Random();
         //JLabel formName=new JLabel("APPLICATION FORM NO. "+(int)(Math.random()*1000));
-        Long formnumber=Math.abs((ran.nextLong()%9000L)+1000);
+        formnumber=Math.abs((ran.nextLong()%9000L)+1000);
         JLabel formName=new JLabel("APPLICATION FORM NO. "+formnumber);
         formName.setBounds(140,20,600,40);
         formName.setFont(new Font("Raleway",Font.BOLD,38));
@@ -184,7 +185,7 @@ public class SignupOne extends JFrame implements ActionListener
     }
     public void actionPerformed(ActionEvent ae)
     {
-        String formno="";
+        String formno=formnumber.toString();
         String name=nameTextField.getText();
         String fname=fnameTextField.getText();
         String dob= dateChooser.getDateFormatString();
@@ -201,6 +202,8 @@ public class SignupOne extends JFrame implements ActionListener
         String city=cityTextField.getText();
         String state=stateTextField.getText();
         String pin=pincodeTextField.getText();
+        if(ae.getSource()==nextButton)
+        {
         try {
             //while(name.equals("")||fname.equals("")||dob.equals("")||gender.equals(null)||email.equals("")||marital.equals("")||address.equals("")||city.equals("")||state.equals("")||pin.equals(""))
             //{
@@ -227,14 +230,23 @@ public class SignupOne extends JFrame implements ActionListener
                 else
                 {
                     Conn c=new Conn();
-                    String query="INSERT INTO SIGNUP VALUES('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+state+"','"+city+"','"+pin+"')";
+                    String query="INSERT INTO SIGNUP VALUES('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+city+"','"+pin+"','"+state+"')";
+                    //create table signup(formno varchar(20), name varchar(20),father_name varchar(20), dob varchar(20), gender varchar(20), email varchar(30), marital varchar(20), address varchar(50), city varchar(25), pincode varchar(20), state varchar(25));
                     c.s.executeUpdate(query);
+                    JOptionPane.showMessageDialog(null, "Data inserted successfully");
+                    c.s.close();
+                    setVisible(false);
+
+                    new SignupTwo(formno).setVisible(true);
                 }
 
             //}
             
-        } catch (Exception e) {
-            System.out.println(e);
+            } 
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
         }
         if(ae.getSource()==resetButton)
         {
@@ -245,11 +257,14 @@ public class SignupOne extends JFrame implements ActionListener
             cityTextField.setText("");
             stateTextField.setText("");
             pincodeTextField.setText("");
+            married.setSelected(false);
+            unmarried.setSelected(false);
+            others.setSelected(false);
+            male.setSelected(false);
+            female.setSelected(false);
+            others.setSelected(false);
         }
-        else if(ae.getSource()==nextButton)
-        {
-
-        }
+        
     }
     public static void main(String[] args) {
         new SignupOne();

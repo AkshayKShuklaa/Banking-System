@@ -87,12 +87,13 @@ class login extends JFrame implements ActionListener
         }
         else if(ae.getSource()==signupButton)
         {
-
+            setVisible(false);
+            new SignupOne().setVisible(true);
         }
     }
     public static void main(String[] args)
     {
         System.out.println("HELLO JAVA FSD");
-        login ob=new login();
+        new login();
     }    
 }
