@@ -177,73 +177,49 @@ public class SignupTwo extends JFrame implements ActionListener
     }
     public void actionPerformed(ActionEvent ae)
     {
+        if(ae.getSource()==nextButton)
+        {
+            
+            String sReligion=religionComboBox.getSelectedItem().toString();
+            String sCategory=categoryComboBox.getSelectedItem().toString();
+            String sIncome= incomeComboBox.getSelectedItem().toString();
         
-        String sReligion=religionComboBox.getSelectedItem().toString();
-        String sCategory=categoryComboBox.getSelectedItem().toString();
-        String sIncome= incomeComboBox.getSelectedItem().toString();
+            String sEducation=educationComboBox.getSelectedItem().toString();
+            String sOccupation=occupationComboBox.getSelectedItem().toString();
         
-        String sEducation=educationComboBox.getSelectedItem().toString();
-        String sOccupation=occupationComboBox.getSelectedItem().toString();
+            String sSeniorCitizen=null;
+            if(sYes.isSelected()){
+                sSeniorCitizen="Yes";
+            }
+            else if(sNo.isSelected()){
+                sSeniorCitizen="No";
+            }
+            String sExistingAccount=null;
+            if(eYes.isSelected()){
+                sExistingAccount="Yes";
+            }
+            else if(eNo.isSelected()){
+                sExistingAccount="No";
+            }   
+            String sPan=panTextField.getText();
+            String sAadhar=aadharTextField.getText();
         
-        String sSeniorCitizen=null;
-        if(sYes.isSelected()){
-            sSeniorCitizen="Yes";
-        }
-        else if(sNo.isSelected()){
-            sSeniorCitizen="No";
-        }
-        String sExistingAccount=null;
-        if(eYes.isSelected()){
-            sExistingAccount="Yes";
-        }
-        else if(eNo.isSelected()){
-            sExistingAccount="No";
-        }   
-        String sPan=panTextField.getText();
-        String sAadhar=aadharTextField.getText();
-        
-        try {
-            //while(name.equals("")||category.equals("")||income.equals("")||educational.equals(null)||education.equals("")||occupation.equals("")||pan.equals("")||aadhar.equals("")||seniorCitizen.equals("")||pin.equals(""))
-            //{
-               /*  if(name.equals(""))
-                JOptionPane.showMessageDialog(null, "Name is required");
-                else if(category.equals(""))
-                JOptionPane.showMessageDialog(null, "Father's name is required");
-                else if(income.equals(""))
-                JOptionPane.showMessageDialog(null, "DOB is required");
-                else if(educational.equals(""))
-                JOptionPane.showMessageDialog(null, "Gender is required");
-                else if(education.equals(""))
-                JOptionPane.showMessageDialog(null, "Email is required");
-                else if(occupation.equals(""))
-                JOptionPane.showMessageDialog(null, "Marital Status is required");
-                else if(pan.equals(""))
-                JOptionPane.showMessageDialog(null, "Address is required");
-                else if(aadhar.equals(""))
-                JOptionPane.showMessageDialog(null, "City is required");
-                else if(seniorCitizen.equals(""))
-                JOptionPane.showMessageDialog(null, "State is required");
-                else if(pin.equals(""))
-                JOptionPane.showMessageDialog(null, "PIN is required");
-                else
-                {*/
+            try {
                     Conn c=new Conn();
                     String query="INSERT INTO SIGNUPTWO VALUES('"+formno+"','"+sReligion+"','"+sCategory+"','"+sIncome+"','"+sEducation+"','"+sOccupation+"','"+sPan+"','"+sAadhar+"','"+sSeniorCitizen+"','"+sExistingAccount+"')";
                     
                     c.s.executeUpdate(query);
-
-                    //SignupThree s=new SignupThree(formno);
+                    setVisible(false);
+                    new SignupThree(formno).setVisible(true);
                     JOptionPane.showMessageDialog(null, "Data inserted successfully");
                     c.s.close();
                     
-               /*  }*/
-
-            //}
             
-        } catch (Exception e) {
-            System.out.println(e);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
-        if(ae.getSource()==resetButton)
+        else if(ae.getSource()==resetButton)
         {
             nameTextField.setText("");
             categoryTextField.setText("");
@@ -255,10 +231,6 @@ public class SignupTwo extends JFrame implements ActionListener
             eNo.setSelected(false);
             sYes.setSelected(false);
             sNo.setSelected(false);
-        }
-        else if(ae.getSource()==nextButton)
-        {
-
         }
     }
     public static void main(String[] args) {
